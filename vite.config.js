@@ -6,27 +6,26 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   
-  base: './', // Relative paths for static deployment
+  base: './',
   build: {
-    outDir: 'dist', // Production build output
-    assetsDir: 'assets', // Organized asset directory
-    sourcemap: false, // Disabled for production
-    minify: 'terser', // Advanced minification
-    cssCodeSplit: true, // Efficient CSS loading
-    chunkSizeWarningLimit: 1000, // Increase chunk size warning threshold
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    minify: 'terser',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 1000,
     terserOptions: {
       compress: {
-        drop_console: true, // Remove console logs
-        drop_debugger: true, // Remove debugger statements
+        drop_console: true,
+        drop_debugger: true,
       },
       format: {
-        comments: false, // Remove comments
+        comments: false,
       },
     },
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Automated vendor chunk splitting
           if (id.includes('node_modules')) {
             if (id.includes('react')) return 'vendor-react';
             if (id.includes('framer-motion')) return 'vendor-framer';
@@ -39,19 +38,12 @@ export default defineConfig({
       }
     }
   },
-  // Enable for PWA support (uncomment if needed):
-  /*
-  manifest: true,
-  workbox: {
-    globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff2}']
-  },
-  */
   preview: {
-    port: 8080, // Production preview port
-    strictPort: true // Prevent fallback to random port
+    port: 8080,
+    strictPort: true
   },
   server: {
-    host: true, // Enable LAN access
-    port: 5173 // Development port
+    host: true,
+    port: 5173
   }
 });
