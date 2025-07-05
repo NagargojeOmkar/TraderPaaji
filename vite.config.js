@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  
+  // Set project root explicitly
+  root: path.resolve(__dirname, './'),
   
   base: './',
   build: {
@@ -24,6 +27,9 @@ export default defineConfig({
       },
     },
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html')
+      },
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
@@ -45,5 +51,11 @@ export default defineConfig({
   server: {
     host: true,
     port: 5173
+  },
+  resolve: {
+    // Add this alias to ensure consistent path resolution
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
   }
 });
