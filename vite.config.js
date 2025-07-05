@@ -6,15 +6,14 @@ import path from 'path';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   
-  // Set project root explicitly
   root: path.resolve(__dirname, './'),
-  
   base: './',
+  
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
-    minify: 'terser',
+    minify: 'terser', // Requires terser package
     cssCodeSplit: true,
     chunkSizeWarningLimit: 1000,
     terserOptions: {
@@ -44,20 +43,17 @@ export default defineConfig({
       }
     }
   },
+  
   preview: {
     port: 8080,
-    strictPort: true,
-    // Add this to simulate production routing
-    headers: {
-      'Cache-Control': 'public, max-age=3600',
-    }
+    strictPort: true
   },
+  
   server: {
     host: true,
-    port: 5173,
-    // Add strict port for consistency
-    strictPort: true,
+    port: 5173
   },
+  
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
