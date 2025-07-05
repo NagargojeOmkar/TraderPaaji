@@ -46,14 +46,19 @@ export default defineConfig({
   },
   preview: {
     port: 8080,
-    strictPort: true
+    strictPort: true,
+    // Add this to simulate production routing
+    headers: {
+      'Cache-Control': 'public, max-age=3600',
+    }
   },
   server: {
     host: true,
-    port: 5173
+    port: 5173,
+    // Add strict port for consistency
+    strictPort: true,
   },
   resolve: {
-    // Add this alias to ensure consistent path resolution
     alias: {
       '@': path.resolve(__dirname, './src')
     }
